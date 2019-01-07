@@ -1,4 +1,4 @@
-{% set version = "1.0.16" %}
+{% set version = "1.0.17" %}
 
 package:
   name: libsodium
@@ -7,10 +7,10 @@ package:
 source:
   fn: libsodium-{{ version }}.tar.gz
   url: https://github.com/jedisct1/libsodium/releases/download/{{ version }}/libsodium-{{ version }}.tar.gz
-  sha256: eeadc7e1e1bcef09680fb4837d448fbdf57224978f865ac1c16745868fbd0533
+  sha256: 0cc3dae33e642cc187b5ceb467e0ad0e1b51dcba577de1190e9ffa17766ac2b1
 
 build:
-  number: 1001
+  number: 1000
   run_exports:
     # libsodium can bump its ABI version in patch releases,
     # so we have to pin it down
