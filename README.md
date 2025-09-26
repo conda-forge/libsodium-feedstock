@@ -24,14 +24,7 @@ Current build status
 ====================
 
 
-<table><tr>
-    <td>Travis</td>
-    <td>
-      <a href="https://app.travis-ci.com/conda-forge/libsodium-feedstock">
-        <img alt="linux" src="https://img.shields.io/travis/com/conda-forge/libsodium-feedstock/main.svg?label=Linux">
-      </a>
-    </td>
-  </tr>
+<table>
     
   <tr>
     <td>Azure</td>
@@ -100,6 +93,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libsodium-green.svg)](https://anaconda.org/conda-forge/libsodium) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsodium.svg)](https://anaconda.org/conda-forge/libsodium) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsodium.svg)](https://anaconda.org/conda-forge/libsodium) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsodium.svg)](https://anaconda.org/conda-forge/libsodium) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libsodium--static-green.svg)](https://anaconda.org/conda-forge/libsodium-static) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libsodium-static.svg)](https://anaconda.org/conda-forge/libsodium-static) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libsodium-static.svg)](https://anaconda.org/conda-forge/libsodium-static) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libsodium-static.svg)](https://anaconda.org/conda-forge/libsodium-static) |
 
 Installing libsodium
 ====================
@@ -111,16 +105,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `libsodium` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `libsodium, libsodium-static` can be installed with `conda`:
 
 ```
-conda install libsodium
+conda install libsodium libsodium-static
 ```
 
 or with `mamba`:
 
 ```
-mamba install libsodium
+mamba install libsodium libsodium-static
 ```
 
 It is possible to list all of the versions of `libsodium` available on your platform with `conda`:
