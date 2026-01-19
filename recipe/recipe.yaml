@@ -32,12 +32,13 @@ requirements:
 tests:
   - package_contents:
       lib:
-        - sodium
+        - if: unix
+          then: sodium
+        - if: win
+          then: libsodium
       include:
         - sodium.h
-        - if: win
-          then:
-            - sodium/version.h
+        - sodium/version.h
       files:
         not_exists: 
           - if: unix
@@ -45,24 +46,8 @@ tests:
               - lib/libsodium.a
           - if: win
             then:
-              - "%LIBRARY_LIB%/libsodium_static.lib"
-  - script:
-      - if: unix
-        then: test ! -f ${PREFIX}/lib/libsodium.a
-      - if: osx
-        then: test -f ${PREFIX}/lib/libsodium.dylib
-      - if: linux
-        then: test -f ${PREFIX}/lib/libsodium.so
-      - if: win
-        then: if not exist %LIBRARY_INC%\sodium.h              exit 1
-      - if: win
-        then: if not exist %LIBRARY_INC%\sodium\version.h      exit 1
-      - if: win
-        then: if not exist %LIBRARY_BIN%\libsodium.dll         exit 1
-      - if: win
-        then: if not exist %LIBRARY_LIB%\libsodium.lib         exit 1
-      - if: win
-        then: if exist %LIBRARY_LIB%\libsodium_static.lib  exit 1
+              - Library/lib/libsodium_static.lib
+
 
 about:
   license: ISC
