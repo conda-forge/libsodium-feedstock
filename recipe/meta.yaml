@@ -7,6 +7,9 @@ package:
 source:
   url: https://download.libsodium.org/libsodium/releases/libsodium-{{ version }}.tar.gz
   sha256: 9e4285c7a419e82dedb0be63a72eea357d6943bc3e28e6735bf600dd4883feaf
+  patches:
+    # FIXME: arm patch applied upstream, remove after 1.0.22
+    - 6702f69bef6044163acc7715e6ac7e430890ce78.patch
 
 build:
   number: 0
