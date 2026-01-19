@@ -3,11 +3,11 @@ About libsodium-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/libsodium-feedstock/blob/main/LICENSE.txt)
 
-Home: http://libsodium.org
+Home: https://libsodium.org/
 
 Package license: ISC
 
-Summary: A modern and easy-to-use crypto library.
+Summary: A modern and easy-to-use crypto library
 
 Development: https://github.com/jedisct1/libsodium
 
@@ -18,7 +18,6 @@ signatures, password hashing and more. It is a portable, cross-compilable,
 installable, packageable fork of NaCl, with a compatible API, and an
 extended API to improve usability even further. Its goal is to provide all
 of the core operations needed to build higher-level cryptographic tools.
-
 
 Current build status
 ====================
