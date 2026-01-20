@@ -10,9 +10,10 @@ if "%ARCH%" == "32" (
 cd /d %SRC_DIR%\builds\msvc\vs%VS_YEAR%\
 msbuild libsodium.sln /p:Configuration=DynRelease /p:Platform=%ARCH%
 if errorlevel 1 exit 1
-set ARTIFACTS_DIR=%SRC_DIR%\bin\%ARCH%\Release\v142
+set ARTIFACTS_DIR=%SRC_DIR%\bin\%ARCH%\Release\v143
 
 if not exist %ARTIFACTS_DIR%\dynamic\libsodium.dll    exit 1
+if not exist "%LIBRARY_LIB%" mkdir %LIBRARY_LIB%
 
 move /y %ARTIFACTS_DIR%\dynamic\libsodium.dll %LIBRARY_BIN%
 move /y  %ARTIFACTS_DIR%\dynamic\libsodium.lib %LIBRARY_LIB%
