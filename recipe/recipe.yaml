@@ -8,14 +8,14 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://download.libsodium.org/libsodium/releases/libsodium-${{ version }}.tar.gz
-  sha256: 9e4285c7a419e82dedb0be63a72eea357d6943bc3e28e6735bf600dd4883feaf
-  patches:
-    # FIXME: arm patch applied upstream, remove after 1.0.22
-    - 6702f69bef6044163acc7715e6ac7e430890ce78.patch
+  # stable tarball gets patches and hash will change.
+  # If we want reproducible URLs, we can use
+  # commits on the stable branch, which won't get autotick PRs
+  url: https://download.libsodium.org/libsodium/releases/libsodium-${{ version }}-stable.tar.gz
+  sha256: 2c7c0083a3d4151634b4237139a6bc216ae3c5cd95ad9c04fc16551021e28a0b
 
 build:
-  number: 0
+  number: 1
   script: build
 
 requirements:
