@@ -47,7 +47,25 @@ tests:
           - if: win
             then:
               - Library/lib/libsodium_static.lib
-
+  - script:
+      - if: unix
+        then:
+          - cmake -S test -B test/build $CMAKE_ARGS
+        else:
+          - cmake -S test -B test/build %CMAKE_ARGS%
+      - cmake --build test/build
+      - ctest --test-dir test/build --output-on-failure
+    files:
+      recipe:
+        - test/
+    requirements:
+      run:
+        - cmake
+        - ${{ compiler("c") }}
+        - ${{ stdlib("c") }}
+        - if: unix
+          then:
+            - make
 
 about:
   license: ISC
