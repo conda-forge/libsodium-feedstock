@@ -1,0 +1,31 @@
+From aa0126c996fd8524bf0f7291bd54f2f71846c090 Mon Sep 17 00:00:00 2001
+From: Frank Denis <github@pureftpd.org>
+Date: Sat, 17 Jan 2026 12:20:09 +0100
+Subject: [PATCH 16/26] Emscripten: remove LTO
+
+In Emscripten 4, LTO seems to be causing significant performance
+regressions in the webassembly code.
+
+Reported by @cooper667 -- Thanks!
+
+See https://github.com/jedisct1/libsodium.js/issues/359
+---
+ dist-build/emscripten.sh | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/dist-build/emscripten.sh b/dist-build/emscripten.sh
+index 39480b28..2f66b9f5 100755
+--- a/dist-build/emscripten.sh
++++ b/dist-build/emscripten.sh
+@@ -16,8 +16,6 @@ export LDFLAGS="${LDFLAGS} -s DISABLE_EXCEPTION_CATCHING=1"
+ export LDFLAGS="${LDFLAGS} -s NODEJS_CATCH_EXIT=0"
+ export LDFLAGS="${LDFLAGS} -s NODEJS_CATCH_REJECTION=0"
+ export LDFLAGS="${LDFLAGS} -s WASM_BIGINT=0"
+-export LDFLAGS="${LDFLAGS} -flto"
+-export CFLAGS="${CFLAGS:+${CFLAGS} }-flto"
+ 
+ echo
+ if [ "$1" = "--standard" ]; then
+-- 
+2.49.0
+

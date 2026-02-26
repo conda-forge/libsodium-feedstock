@@ -1,0 +1,24 @@
+From aa1d5c8d66abc0d246cc85d0e275a7eedc480ef4 Mon Sep 17 00:00:00 2001
+From: Frank Denis <github@pureftpd.org>
+Date: Sun, 18 Jan 2026 14:40:59 +0100
+Subject: [PATCH 18/26] Document the LTO change
+
+---
+ ChangeLog | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/ChangeLog b/ChangeLog
+index 7cfeaa8b..741e7d76 100644
+--- a/ChangeLog
++++ b/ChangeLog
+@@ -1,4 +1,7 @@
+ * Version 1.0.21-stable
++ - LTO is now disabled when using Emscripten: with Emscripten 4, LTO
++produced WebAssembly modules with functions that ran significantly
++slower than without it.
+  - JavaScript sumo builds now allow up to 80 MiB memory usage, so that
+ `crypto_pwhash` with the interactive settings can be used in pure
+ JavaScript, not just WebAssembly.
+-- 
+2.49.0
+

@@ -1,0 +1,63 @@
+From c4e3b4028f59f7b6de517df2bc536ef2cbf65ded Mon Sep 17 00:00:00 2001
+From: Frank Denis <github@pureftpd.org>
+Date: Thu, 5 Feb 2026 23:03:08 +0100
+Subject: [PATCH 24/26] Zero the state afetr AES decryption
+
+---
+ .../crypto_aead/aes256gcm/aesni/aead_aes256gcm_aesni.c      | 6 +++++-
+ .../aes256gcm/armcrypto/aead_aes256gcm_armcrypto.c          | 6 +++++-
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/src/libsodium/crypto_aead/aes256gcm/aesni/aead_aes256gcm_aesni.c b/src/libsodium/crypto_aead/aes256gcm/aesni/aead_aes256gcm_aesni.c
+index 3b0e3f3f..8f823e0f 100644
+--- a/src/libsodium/crypto_aead/aes256gcm/aesni/aead_aes256gcm_aesni.c
++++ b/src/libsodium/crypto_aead/aes256gcm/aesni/aead_aes256gcm_aesni.c
+@@ -970,6 +970,7 @@ crypto_aead_aes256gcm_decrypt_detached(unsigned char *m, unsigned char *nsec,
+                                        const unsigned char *k)
+ {
+     CRYPTO_ALIGN(16) crypto_aead_aes256gcm_state st;
++    int                                          ret;
+ 
+     PREFETCH_WRITE(m);
+     PREFETCH_READ(c);
+@@ -977,8 +978,11 @@ crypto_aead_aes256gcm_decrypt_detached(unsigned char *m, unsigned char *nsec,
+ 
+     crypto_aead_aes256gcm_beforenm(&st, k);
+ 
+-    return crypto_aead_aes256gcm_decrypt_detached_afternm(
++    ret = crypto_aead_aes256gcm_decrypt_detached_afternm(
+         m, nsec, c, clen, mac, ad, adlen, npub, (const crypto_aead_aes256gcm_state *) &st);
++    sodium_memzero(&st, sizeof st);
++
++    return ret;
+ }
+ 
+ int
+diff --git a/src/libsodium/crypto_aead/aes256gcm/armcrypto/aead_aes256gcm_armcrypto.c b/src/libsodium/crypto_aead/aes256gcm/armcrypto/aead_aes256gcm_armcrypto.c
+index 65973e2f..83ed6896 100644
+--- a/src/libsodium/crypto_aead/aes256gcm/armcrypto/aead_aes256gcm_armcrypto.c
++++ b/src/libsodium/crypto_aead/aes256gcm/armcrypto/aead_aes256gcm_armcrypto.c
+@@ -988,6 +988,7 @@ crypto_aead_aes256gcm_decrypt_detached(unsigned char *m, unsigned char *nsec,
+                                        const unsigned char *k)
+ {
+     CRYPTO_ALIGN(16) crypto_aead_aes256gcm_state st;
++    int                                          ret;
+ 
+     PREFETCH_WRITE(m);
+     PREFETCH_READ(c);
+@@ -995,8 +996,11 @@ crypto_aead_aes256gcm_decrypt_detached(unsigned char *m, unsigned char *nsec,
+ 
+     crypto_aead_aes256gcm_beforenm(&st, k);
+ 
+-    return crypto_aead_aes256gcm_decrypt_detached_afternm(
++    ret = crypto_aead_aes256gcm_decrypt_detached_afternm(
+         m, nsec, c, clen, mac, ad, adlen, npub, (const crypto_aead_aes256gcm_state *) &st);
++    sodium_memzero(&st, sizeof st);
++
++    return ret;
+ }
+ 
+ int
+-- 
+2.49.0
+

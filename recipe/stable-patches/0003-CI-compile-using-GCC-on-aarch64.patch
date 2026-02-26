@@ -1,0 +1,44 @@
+From 3ce49ae85d341d9b39fff6a5011d4533e68da227 Mon Sep 17 00:00:00 2001
+From: Frank Denis <github@pureftpd.org>
+Date: Wed, 7 Jan 2026 12:12:49 +0100
+Subject: [PATCH 03/26] CI: compile using GCC on aarch64
+
+---
+ .github/workflows/ci.yml | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
+index 06a4e065..8a013078 100644
+--- a/.github/workflows/ci.yml
++++ b/.github/workflows/ci.yml
+@@ -187,6 +187,27 @@ jobs:
+           done
+           exit $failed
+ 
++  aarch64-gcc:
++    runs-on: ubuntu-24.04-arm
++    steps:
++      - uses: actions/checkout@v6
++
++      - name: Update packages list
++        run: sudo apt-get update
++
++      - name: Install dependencies
++        run: sudo apt-get install -y build-essential libtool autoconf automake
++
++      - name: Autogen
++        run: ./autogen.sh -s
++
++      - name: Compilation with GCC on aarch64
++        run: |
++          env CPPFLAGS="-DDEV_MODE=1" ./configure --disable-dependency-tracking
++          make -j $(nproc)
++          make check
++          make distclean > /dev/null
++
+   android:
+     runs-on: ubuntu-latest
+     steps:
+-- 
+2.49.0
+
