@@ -1,0 +1,33 @@
+From e18eee6532f5dc4b0f7ee99024e24bf4c8e12fc2 Mon Sep 17 00:00:00 2001
+From: Frank Denis <github@pureftpd.org>
+Date: Wed, 11 Feb 2026 12:00:10 +0100
+Subject: [PATCH 26/26] emscripten: build native ESM module
+
+---
+ dist-build/emscripten.sh | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/dist-build/emscripten.sh b/dist-build/emscripten.sh
+index 10d2ddf1..9ee7e6fc 100755
+--- a/dist-build/emscripten.sh
++++ b/dist-build/emscripten.sh
+@@ -240,9 +240,14 @@ ENDJS
+ 
+   rm "${PREFIX}/lib/libsodium.pre.tmp.js" "${PREFIX}/lib/libsodium.mid.tmp.js" "${PREFIX}/lib/libsodium.end.tmp.js"
+ 
+-  #KEEP rm "${PREFIX}/lib/libsodium.asm.tmp.js" "${PREFIX}/lib/libsodium.wasm.tmp.js"
++  # Build native ESM module (WASM-only, factory pattern, no asm.js fallback)
++  emccLibsodium "${PREFIX}/lib/libsodium.esm.mjs" -O3 ${SIMD_CFLAGS} \
++    -s WASM=1 -s EVAL_CTORS=2 -s INITIAL_MEMORY=${WASM_INITIAL_MEMORY} \
++    -s MODULARIZE=1 -s EXPORT_ES6=1 -s EXPORT_NAME=createLibsodium \
++    -s ENVIRONMENT=web,worker
++
+   touch -r "${PREFIX}/lib/libsodium.js" "$DONE_FILE"
+-  ls -l "${PREFIX}/lib/libsodium.js"
++  ls -l "${PREFIX}/lib/libsodium.js" "${PREFIX}/lib/libsodium.esm.mjs"
+   exit 0
+ fi
+ 
+-- 
+2.49.0
+
