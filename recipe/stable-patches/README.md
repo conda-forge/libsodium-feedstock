@@ -21,6 +21,7 @@ cd libsodium
 git format-patch ${TAG}
 mv *.patch ../recipe/stable-patches
 cd ../recipe
+git add stable-patches
 ls stable-patches/*.patch | sort | sed 's@^@    - @g' | pbcopy
 # paste updated list in source.patches
 ```
