@@ -40,7 +40,7 @@ source:
     - stable-patches/0026-emscripten-build-native-ESM-module.patch
 
 build:
-  number: 3
+  number: 4
   script: build
 
 requirements:
