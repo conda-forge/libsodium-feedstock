@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: 1.0.21
+  version: "1.0.22"
 
 package:
   name: libsodium
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://download.libsodium.org/libsodium/releases/libsodium-${{ version }}.tar.gz
-  sha256: 9e4285c7a419e82dedb0be63a72eea357d6943bc3e28e6735bf600dd4883feaf
+  sha256: adbdd8f16149e81ac6078a03aca6fc03b592b89ef7b5ed83841c086191be3349
   patches:
     # to regen stable branch patch list, see stable-patches/README.md
     - stable-patches/0001-Fix-compilation-with-GCC-on-aarch64.patch
@@ -40,7 +40,7 @@ source:
     - stable-patches/0026-emscripten-build-native-ESM-module.patch
 
 build:
-  number: 3
+  number: 0
   script: build
 
 requirements:
@@ -65,7 +65,7 @@ tests:
         - sodium.h
         - sodium/version.h
       files:
-        not_exists: 
+        not_exists:
           - if: unix
             then:
               - lib/libsodium.a
