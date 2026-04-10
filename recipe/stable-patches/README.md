@@ -14,8 +14,8 @@ any manual patches we need should not go here.
 Generate patch list:
 
 ```
-TAG=1.0.21-RELEASE
-git rm recipe/stable-patches/*.patch
+TAG=1.0.22
+git rm -f  recipe/stable-patches/*.patch
 git clone https://github.com/jedisct1/libsodium -b stable
 cd libsodium
 git format-patch ${TAG}
