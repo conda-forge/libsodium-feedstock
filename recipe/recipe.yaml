@@ -15,7 +15,7 @@ source:
 
 
 build:
-  number: 1
+  number: 2
   script: build
 
 requirements:
@@ -87,3 +87,4 @@ extra:
   recipe-maintainers:
     - jakirkham
     - minrk
+    - luhenry
