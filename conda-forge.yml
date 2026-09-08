@@ -13,3 +13,8 @@ provider:
   osx_arm64: default
   win_arm64: default
 test: native_and_emulated
+workflow_settings:
+  store_build_artifacts:
+    - provider: github_actions
+      platform: win_arm64
+      value: true
