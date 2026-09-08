@@ -1,16 +1,18 @@
 @echo on
 
-if "%ARCH%" == "32" (
-  set ARCH=Win32
+if "%target_platform%" == "win-arm64" (
+  set SODIUM_PLATFORM=ARM64
+) else if "%ARCH%" == "32" (
+  set SODIUM_PLATFORM=Win32
 ) else (
-  set ARCH=x64
+  set SODIUM_PLATFORM=x64
 )
 
 
 cd /d %SRC_DIR%\builds\msvc\vs%VS_YEAR%\
-msbuild libsodium.sln /p:Configuration=DynRelease /p:Platform=%ARCH%
+msbuild libsodium.sln /p:Configuration=DynRelease /p:Platform=%SODIUM_PLATFORM%
 if errorlevel 1 exit 1
-set ARTIFACTS_DIR=%SRC_DIR%\bin\%ARCH%\Release\v143
+set ARTIFACTS_DIR=%SRC_DIR%\bin\%SODIUM_PLATFORM%\Release\v143
 
 if not exist %ARTIFACTS_DIR%\dynamic\libsodium.dll    exit 1
 if not exist "%LIBRARY_LIB%" mkdir %LIBRARY_LIB%

@@ -15,7 +15,7 @@ source:
 
 
 build:
-  number: 2
+  number: 3
   script: build
 
 requirements:
@@ -54,6 +54,12 @@ tests:
         else:
           - cmake -G Ninja -S test -B test/build %CMAKE_ARGS%
       - cmake --build test/build
+      - if: target_platform == "win-arm64"
+        then:
+          - dumpbin /headers "%PREFIX%\Library\bin\libsodium.dll" | findstr /I /C:"AA64 machine (ARM64)"
+          - if errorlevel 1 exit 1
+          - dumpbin /headers test\build\test_version.exe | findstr /I /C:"AA64 machine (ARM64)"
+          - if errorlevel 1 exit 1
       - ctest --test-dir test/build --output-on-failure
     files:
       recipe:
